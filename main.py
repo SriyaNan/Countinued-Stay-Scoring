@@ -169,4 +169,4 @@ with right:
         for item in docs:st.info(item)
     cadence={"residential":"Every 3–5 days","php":"Every 5–7 days","iop":"Every 7–14 days"}[loc];st.caption(f"Suggested review cadence: {cadence}")
     summary=f"Athon Continued-Stay Summary — {W[track]['label']} / {W[track]['locs'][loc][0]}\nDays at level: {st.session_state.days} (benchmark {st.session_state.benchmark})\nScore: {round(pct) if complete else 'incomplete'} / 100 — {band}"
-    st.download_button("Download UR summary",summary,"athon_ur_summary.txt","text/plain")
+    
