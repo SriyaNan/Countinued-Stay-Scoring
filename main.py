@@ -1,8 +1,11 @@
 import json
 from datetime import date
 import streamlit as st
-from groq import Groq
 import os
+from dotenv import load_dotenv
+from groq import Groq
+
+load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -92,6 +95,7 @@ with left:
     track_name=st.radio("Clinical track",[W[x]["label"] for x in W],index=list(W).index(st.session_state.track),horizontal=True); track=next(x for x in W if W[x]["label"]==track_name)
     if track!=st.session_state.track: st.session_state.track,st.session_state.loc,st.session_state.answers,st.session_state.evidence=track,"residential",{},{};st.session_state.benchmark=W[track]["locs"]["residential"][1];st.session_state.revision+=1;st.rerun()
     loc=st.radio("Level of care",list(W[track]["locs"]),format_func=lambda x:W[track]["locs"][x][0],index=list(W[track]["locs"]).index(st.session_state.loc))
+
     if loc!=st.session_state.loc: st.session_state.loc,st.session_state.answers,st.session_state.evidence=loc,{},{};st.session_state.benchmark=W[track]["locs"][loc][1];st.session_state.revision+=1;st.rerun()
     st.session_state.days=st.number_input("Days at current level of care",min_value=0,value=st.session_state.days)
     st.session_state.benchmark=st.number_input("Typical duration benchmark (days)",min_value=1,value=st.session_state.benchmark)
